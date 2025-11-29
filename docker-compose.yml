@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  callit-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:5000
+      - REACT_APP_PAYFAST_NOTIFY_URL=http://localhost:5000/api/payfast/callback
+      - REACT_APP_PAYFAST_RETURN_URL=http://localhost:3000/success
+      - REACT_APP_PAYFAST_CANCEL_URL=http://localhost:3000/cancel
+    container_name: callit-web-app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
