@@ -13,7 +13,7 @@ const PaymentSuccess = () => {
   useEffect(() => {
     const verifyPayment = async () => {
       let orderId = searchParams.get("orderId");
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || "https://api.callit-studio.com";
 
       // If no orderId in URL, check localStorage (fallback)
       if (!orderId) {

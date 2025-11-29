@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // Backend URLs
-const ORDERS_BASE_URL = "http://localhost:5000/api/orders/create";
-const PAYFAST_REDIRECT_URL = "http://localhost:5000/api/payfast/redirect";
+const ORDERS_BASE_URL = "https://api.callit-studio.com/api/orders/create";
+const PAYFAST_REDIRECT_URL = "https://api.callit-studio.com/api/payfast/redirect";
 
 // PayFast Configuration
 export const PAYFAST_CONFIG = {
@@ -32,7 +32,7 @@ export const createOrder = async (orderData) => {
 export const getPayFastToken = async (orderId, amount) => {
   try {
     console.log("Requesting PayFast token with:", { orderId, amount });
-    const response = await axios.post("http://localhost:5000/api/payfast/get-token", {
+    const response = await axios.post("https://api.callit-studio.com/api/payfast/get-token", {
       orderId,
       amount
     });
@@ -50,9 +50,9 @@ export const initializePayFastPayment = async (orderId, token) => {
     const payload = {
       orderId,
       token,
-      returnUrl: process.env.REACT_APP_PAYFAST_RETURN_URL || "http://localhost:3000/success",
-      cancelUrl: process.env.REACT_APP_PAYFAST_CANCEL_URL || "http://localhost:3000/cancel",
-      notifyUrl: process.env.REACT_APP_PAYFAST_NOTIFY_URL || "http://localhost:5000/api/payfast/callback"
+      returnUrl: process.env.REACT_APP_PAYFAST_RETURN_URL || "https://callit-studio.com/success",
+      cancelUrl: process.env.REACT_APP_PAYFAST_CANCEL_URL || "https://callit-studio.com/cancel",
+      notifyUrl: process.env.REACT_APP_PAYFAST_NOTIFY_URL || "http://api.callit-studio.com/api/payfast/callback"
     };
 
     console.log("Initializing PayFast payment with URLs:", {
