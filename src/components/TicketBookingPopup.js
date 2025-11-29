@@ -37,8 +37,8 @@ const TicketBookingPopup = ({ isOpen, onClose, eventData }) => {
     const forms = document.querySelectorAll("input[name], select[name]");
     const data = {
       quantity,
-      eventName: "NAQSH-E-GOONJ",
-      eventDate: "September 5, 2025",
+      eventName: "GOONJ 2.0",
+      eventDate: "December 5, 2025",
       ticketType: "Standard Ticket",
     };
     forms.forEach((input) => {

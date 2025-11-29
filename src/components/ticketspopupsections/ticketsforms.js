@@ -54,7 +54,7 @@ const TicketForm = ({
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm text-gray-900"
               >
                 <option value="">Select Event</option>
-                <option value="naqsh-e-goonj">NAQSH-E-GOONJ</option>
+                <option value="naqsh-e-goonj">GOONJ 2.0</option>
               </select>
             </div>
             <div>
@@ -160,7 +160,7 @@ const TicketForm = ({
             </div>
             <div className="mb-2">
               <div className="text-base font-medium text-gray-800">
-                NAQSH-E-GOONJ
+                GOONJ 2.0
               </div>
               <div className="text-sm text-gray-500">
                 Sales end on Sep 16,2025
