@@ -500,9 +500,9 @@ const EventTicketInfo = () => {
   };
 
   const days = [
-    { key: "day1", label: "Day 1", date: "12th Dec - 3pm - 12am" },
-    { key: "day2", label: "Day 2", date: "13th Dec - 3pm - 12am" },
-    { key: "day3", label: "Day 3", date: "14th Dec - 3pm - 12am" },
+    { key: "day1", label: "Day 1", date: "05th Dec - 2025" },
+    { key: "day2", label: "Day 2", date: "06th Dec - 2025" },
+    { key: "day3", label: "Day 3", date: "07th Dec - 2025" },
   ];
 
   return (
