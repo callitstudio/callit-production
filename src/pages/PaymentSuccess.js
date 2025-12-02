@@ -153,32 +153,78 @@ debugger
         el.style.display = 'none';
       });
 
-      const opt = {
-        margin: [0.6, 0.6, 0.6, 0.6],
-        filename: `receipt-${orderDetails?.orderId || 'receipt'}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-          scale: 2, 
-          useCORS: true,
-          logging: false,
-          windowWidth: element.scrollWidth,
-          windowHeight: element.scrollHeight,
-          backgroundColor: '#ffffff'
-        },
-        jsPDF: { 
-          unit: 'cm', 
-          format: 'a4', 
-          orientation: 'portrait',
-          compress: true
-        }
-      };
-      
-      window.html2pdf().set(opt).from(element).save().then(() => {
-        // Restore hidden elements after PDF generation
-        noPrintElements.forEach(el => {
-          el.style.display = '';
+      // Temporarily remove overflow hidden and ensure full visibility
+      const originalOverflow = element.style.overflow;
+      const originalMaxHeight = element.style.maxHeight;
+      const originalOverflowY = element.style.overflowY;
+      element.style.overflow = 'visible';
+      element.style.overflowY = 'visible';
+      element.style.maxHeight = 'none';
+
+      // Wait a bit for styles to apply, then get dimensions
+      setTimeout(() => {
+        // Force a reflow to ensure all content is measured
+        void element.offsetHeight;
+        
+        // Get the actual content height and width with extra padding
+        const contentHeight = Math.max(element.scrollHeight, element.offsetHeight);
+        const contentWidth = Math.max(element.scrollWidth, element.offsetWidth);
+        
+        // Add significant padding to prevent right side cutting
+        const paddingRight = 100; // Extra padding for right side
+        const paddingLeft = 50;
+        const paddingTop = 20;
+        const paddingBottom = 20;
+
+        const opt = {
+          margin: [0.2, 0.5, 0.2, 0.8], // [top, right, bottom, left] - more right margin
+          filename: `receipt-${orderDetails?.orderId || 'receipt'}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { 
+            scale: 1.5, 
+            useCORS: true,
+            logging: false,
+            width: contentWidth + paddingLeft + paddingRight,
+            height: contentHeight + paddingTop + paddingBottom,
+            windowWidth: contentWidth + paddingLeft + paddingRight,
+            windowHeight: contentHeight + paddingTop + paddingBottom,
+            backgroundColor: '#ffffff',
+            allowTaint: true,
+            scrollX: -paddingLeft,
+            scrollY: -paddingTop,
+            x: -paddingLeft,
+            y: -paddingTop
+          },
+          jsPDF: { 
+            unit: 'cm', 
+            format: 'a4', 
+            orientation: 'portrait',
+            compress: true
+          },
+          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+        
+        window.html2pdf().set(opt).from(element).save().then(() => {
+          // Restore original styles
+          element.style.overflow = originalOverflow;
+          element.style.overflowY = originalOverflowY;
+          element.style.maxHeight = originalMaxHeight;
+          
+          // Restore hidden elements after PDF generation
+          noPrintElements.forEach(el => {
+            el.style.display = '';
+          });
+        }).catch((error) => {
+          console.error('PDF generation error:', error);
+          // Restore original styles even on error
+          element.style.overflow = originalOverflow;
+          element.style.overflowY = originalOverflowY;
+          element.style.maxHeight = originalMaxHeight;
+          noPrintElements.forEach(el => {
+            el.style.display = '';
+          });
         });
-      });
+      }, 100);
     };
 
     // Check if html2pdf is already loaded
@@ -235,8 +281,8 @@ debugger
             page-break-after: auto !important;
             width: 100% !important;
             margin: 0 !important;
-            max-height: calc(100vh - 1.2cm) !important;
-            overflow: hidden !important;
+            max-height: none !important;
+            overflow: visible !important;
           }
           .receipt-card .bg-gradient-to-r {
             padding: 1rem !important;
@@ -292,31 +338,34 @@ debugger
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center py-12 px-4 print-container">
         <div className="max-w-2xl w-full">
           {/* Success Card */}
-          <div ref={receiptRef} className="bg-white rounded-2xl shadow-2xl overflow-hidden border-t-4 border-green-500 receipt-card">
+          <div ref={receiptRef} className="bg-white rounded-3xl shadow-2xl border-t-4 border-green-500 receipt-card overflow-hidden" style={{ overflow: 'visible' }}>
           {/* Header */}
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-8 text-center">
-            <div className="flex justify-center mb-4">
-              <CheckCircle className="w-20 h-20 text-green-500" />
+          <div className="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 p-10 text-center border-b border-green-100">
+            <div className="flex justify-center mb-5">
+              <div className="relative">
+                <div className="absolute inset-0 bg-green-400 rounded-full opacity-20 animate-pulse"></div>
+                <CheckCircle className="w-24 h-24 text-green-600 relative z-10 drop-shadow-lg" strokeWidth={2.5} />
+              </div>
             </div>
-            <h1 className="text-4xl font-bold text-green-700 mb-2">
+            <h1 className="text-5xl font-extrabold text-green-700 mb-3 tracking-tight">
               Payment Successful!
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-700 text-xl font-medium">
               Your tickets have been booked successfully
             </p>
           </div>
 
           {/* Details Section */}
           {orderDetails && (
-            <div className="p-8">
-              <div className="bg-gray-50 rounded-lg p-6 mb-6">
-                <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            <div className="p-10">
+              <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-8 mb-6 shadow-inner border border-gray-200">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-300">
                   Order Details
                 </h2>
-                <div className="space-y-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Order ID:</span>
-                    <span className="font-semibold text-gray-900">
+                <div className="space-y-5">
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-gray-700 font-medium text-base">Order ID:</span>
+                    <span className="font-bold text-gray-900 text-lg tracking-wide">
                       {orderDetails.orderId}
                     </span>
                   </div>
@@ -326,9 +375,9 @@ debugger
                       {orderDetails.transactionId}
                     </span>
                   </div> */}
-                  <div className="border-t pt-4 flex justify-between">
-                    <span className="text-gray-600">Amount Paid (Including Tax):</span>
-                    <span className="font-semibold text-green-600 text-lg">
+                  <div className="border-t-2 border-gray-300 pt-5 flex justify-between items-center">
+                    <span className="text-gray-700 font-medium text-base">Amount Paid (Including Tax):</span>
+                    <span className="font-extrabold text-green-600 text-2xl tracking-tight">
                       PKR {(() => {
                         const amt = typeof orderDetails.amount === 'number' 
                           ? orderDetails.amount 
@@ -337,9 +386,9 @@ debugger
                       })()}
                     </span>
                   </div>
-                  <div className="border-t pt-4 flex justify-between">
-                    <span className="text-gray-600">Date & Time:</span>
-                    <span className="font-semibold text-gray-900">
+                  <div className="border-t-2 border-gray-300 pt-5 flex justify-between items-center">
+                    <span className="text-gray-700 font-medium text-base">Date & Time:</span>
+                    <span className="font-bold text-gray-900 text-lg">
                       {orderDetails.timestamp}
                     </span>
                   </div>
