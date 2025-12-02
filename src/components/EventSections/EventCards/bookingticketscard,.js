@@ -278,10 +278,10 @@ We can’t wait to see you there!`}
                 </div>
                 <div>
                   <p className="font-medium text-gray-900">Email</p>
-                  <p className="text-gray-600">info@goonjh.com</p>
+                  <p className="text-gray-600">callitstudio@gmail.com</p>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
+              {/* <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-[#4a0404] rounded-full flex items-center justify-center">
                   <svg
                     className="w-5 h-5 text-white"
@@ -293,10 +293,10 @@ We can’t wait to see you there!`}
                 </div>
                 <div>
                   <p className="font-medium text-gray-900">Phone</p>
-                  <p className="text-gray-600">+92 300 1234567</p>
+                  <p className="text-gray-600">03213752520</p>
                 </div>
-              </div>
-              <div className="flex items-center space-x-3">
+              </div> */}
+              {/* <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-[#4a0404] rounded-full flex items-center justify-center">
                   <svg
                     className="w-5 h-5 text-white"
@@ -314,7 +314,7 @@ We can’t wait to see you there!`}
                   <p className="font-medium text-gray-900">Location</p>
                   <p className="text-gray-600">Lahore, Pakistan</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         {/* )} */}
