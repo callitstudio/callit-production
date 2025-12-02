@@ -19,7 +19,7 @@ export const PAYFAST_CONFIG = {
 };
 
 export const createOrder = async (orderData) => {
-  console.log("Creating order with data:", ORDERS_BASE_URL);
+  console.log("Creating order with data:", ORDERS_BASE_URL,orderData);
   try {
     const response = await axios.post(ORDERS_BASE_URL, orderData);
     console.log("Order created successfully:", response.data);
