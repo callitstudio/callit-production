@@ -207,7 +207,7 @@ const EventTicketInfo = () => {
     day1: {
       vip: 2500,
       gold: 1500,
-      standard: 100,
+      standard: 1000,
       couple: 1800,
       groupFour: 3500,
     },
