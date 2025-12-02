@@ -251,7 +251,7 @@ const EventTicketInfo = () => {
       standard: 0,
       couple: 0,
       groupFour: 0,
-      grouptwoGeneral: 2,
+      grouptwoGeneral: 1000,
       groupoffourGeneral: 1800,
       groupofsixGeneral: 2500,
     },
