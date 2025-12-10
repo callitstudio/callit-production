@@ -50,7 +50,7 @@ export default function EventBanner() {
         <div className="hidden md:block md:w-[300px] md:h-full relative overflow-hidden md:rounded-l-2xl flex-shrink-0">
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-red-900 to-red-950">
             <img 
-              src="/Section3.png" 
+              src="/banner.jpeg" 
               alt="GOONJ 2.0"
               className="w-full h-full object-cover md:object-contain"
             />

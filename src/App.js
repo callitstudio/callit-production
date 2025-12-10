@@ -16,7 +16,8 @@ import TermsAndConditions from "./pages/Termsandconditions";
 import Ticketinfo from "./pages/Ticketinfo";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancel from "./pages/PaymentCancel";
-
+import FreeTicket from "./pages/FreeTicket";
+import FreeTicketSuccess from "./pages/FreeTicketSuccess";
 function App() {
   return (
     <Router>
@@ -26,7 +27,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/service/:id" element={<ServiceDetail />} />
           <Route path="/events" element={<Events />} />
-          <Route path="/events/:id" element={<EventDetail />} />
+          {/* <Route path="/events/:id" element={<EventDetail />} /> */}
           <Route
             path="/previous-events/:id"
             element={<PreviousEventDetail />}
@@ -37,6 +38,8 @@ function App() {
           <Route path="/ticketinfo" element={<Ticketinfo />} />
           <Route path="/success" element={<PaymentSuccess />} />
           <Route path="/cancel" element={<PaymentCancel />} />
+          <Route path="/free-ticket" element={<FreeTicket />} />
+           <Route path="/free-ticket-success" element={<FreeTicketSuccess />} />
         </Routes>
         <Footer />
       </div>

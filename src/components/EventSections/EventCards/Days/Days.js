@@ -5,7 +5,7 @@ const Days = () => {
   return (
     <div className="w-full px-4 py-6">
       {/* Day Cards - Mobile first approach */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
         <div
           className="bg-[#949494] w-full sm:w-auto text-white relative rounded-lg p-4 text-center h-48 flex flex-col items-center justify-center mx-auto sm:mx-0 max-w-[224px] sm:max-w-none"
         >
@@ -62,10 +62,10 @@ const Days = () => {
             className="pointer-events-none absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-t-6 border-l-transparent border-r-transparent border-t-[#949494]"
           />
         </div>
-      </div>
+      </div> */}
 
       {/* All Days Card - Always Centered */}
-      <div className="flex justify-center mb-6">
+      {/* <div className="flex justify-center mb-6">
         <div
           className="bg-[#949494] text-white relative rounded-lg p-4 text-center h-48 flex flex-col items-center justify-center w-full max-w-[224px] sm:w-52"
         >
@@ -84,13 +84,14 @@ const Days = () => {
             className="pointer-events-none absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-t-6 border-l-transparent border-r-transparent border-t-[#949494]"
           />
         </div>
-      </div>
+      </div>  */}
 
       {/* Orange Purchase Button */}
       <div className="flex justify-center">
-        <Link to="/Ticketinfo" className="w-full sm:w-auto">
+         {/* <Link to="/Ticketinfo" className="w-full sm:w-auto"></Link> */}
+        <Link to="/free-ticket" className="w-full sm:w-auto">
         <button className="bg-[#FF6B35] hover:bg-[#E55A28] text-white font-bold py-4 px-8 rounded-lg uppercase tracking-wider text-sm transition-colors w-full  sm:min-w-[500px]">
-          Purchase Ticket
+          Get Free Ticket
         </button>
         </Link>
       </div>
