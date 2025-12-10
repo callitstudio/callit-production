@@ -20,7 +20,7 @@ const EventSection3 = () => {
           {/* Event Poster Image */}
           <div className="relative flex justify-center">
             <img
-              src="/Section3.png"
+              src="/banner.jpeg"
               alt="BAYAAN Event Poster"
               className="w-full h-76 sm:w-[500px] "
             />
@@ -30,12 +30,12 @@ const EventSection3 = () => {
           <div className="p-4 space-y-3">
             <div className="flex justify-between text-sm">
               <span className="text-gray-600">Start Date:</span>
-              <span className="text-gray-900">5th December, 2025 </span>
+              <span className="text-gray-900">12th December, 2025 </span>
             </div>
-            <div className="flex justify-between text-sm">
+            {/* <div className="flex justify-between text-sm">
               <span className="text-gray-600">End Date:</span>
               <span className="text-gray-900">7th December, 2025 </span>
-            </div>
+            </div> */}
             {/* <div className="flex justify-between text-sm">
               <span className="text-gray-600">Address:</span>
               <span className="text-gray-900">Alhamra Cultural Complex, Lahore</span>

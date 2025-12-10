@@ -21,7 +21,7 @@ export default function EventBanner() {
 
   // Countdown Timer
   useEffect(() => {
-    const eventDate = new Date('2025-12-05T19:00:00');
+    const eventDate = new Date('2025-12-12T19:00:00');
     
     const timer = setInterval(() => {
       const now = new Date();
@@ -77,40 +77,40 @@ export default function EventBanner() {
 
           {/* Event Title */}
           <h1 className="text-4xl md:text-5xl font-black mb-3 bg-gradient-to-r from-amber-500 via-orange-400 to-amber-500 bg-clip-text text-transparent">
-            GOONJ 2.0
+            Lahore Chalay Aoo
           </h1>
           
           <p className="text-zinc-300 text-sm md:text-base mb-4 md:mb-5 leading-relaxed">
-            A 3-day nationwide festival celebrating young talent and creativity
+             Nationwide festival celebrating young talent and creativity
           </p>
 
           {/* Organizer Info */}
-          <div className="bg-gradient-to-br from-zinc-800/60 to-neutral-800/60 backdrop-blur-sm rounded-xl p-3 md:p-4 mb-4 md:mb-5 border border-zinc-700/50 shadow-lg">
+          {/* <div className="bg-gradient-to-br from-zinc-800/60 to-neutral-800/60 backdrop-blur-sm rounded-xl p-3 md:p-4 mb-4 md:mb-5 border border-zinc-700/50 shadow-lg">
             <p className="text-xs text-amber-500 mb-1 uppercase tracking-wide font-semibold">Brought to you by</p>
             <p className="font-bold text-zinc-100 text-base md:text-lg">Humanity Alliance Organization</p>
             <p className="text-xs md:text-sm text-zinc-400">Managed by <span className="text-amber-500">Call it Studio</span></p>
-          </div>
+          </div> */}
 
           {/* Event Details Grid */}
           <div className="grid grid-cols-3 gap-2 md:gap-3 mb-4 md:mb-5">
             <div className="bg-zinc-800/50 backdrop-blur-sm rounded-xl p-3 md:p-4 shadow-lg border border-zinc-700/50 hover:border-amber-600/50 transition-all hover:shadow-amber-900/20">
               <Calendar className="w-4 md:w-5 h-4 md:h-5 text-amber-500 mb-2" />
               <p className="text-xs text-zinc-400 uppercase tracking-wide mb-1">Date</p>
-              <p className="font-bold text-zinc-100 text-sm md:text-base">05-07 Dec</p>
+              <p className="font-bold text-zinc-100 text-sm md:text-base">12 Dec</p>
               <p className="text-xs md:text-sm text-zinc-400">2025</p>
             </div>
             
             <div className="bg-zinc-800/50 backdrop-blur-sm rounded-xl p-3 md:p-4 shadow-lg border border-zinc-700/50 hover:border-amber-600/50 transition-all hover:shadow-amber-900/20">
               <Clock className="w-4 md:w-5 h-4 md:h-5 text-amber-500 mb-2" />
               <p className="text-xs text-zinc-400 uppercase tracking-wide mb-1">Duration</p>
-              <p className="font-bold text-zinc-100 text-sm md:text-base">3 Days</p>
+              <p className="font-bold text-zinc-100 text-sm md:text-base">1 Day</p>
               <p className="text-xs md:text-sm text-zinc-400">Festival</p>
             </div>
             
             <div className="bg-zinc-800/50 backdrop-blur-sm rounded-xl p-3 md:p-4 shadow-lg border border-zinc-700/50 hover:border-amber-600/50 transition-all hover:shadow-amber-900/20">
               <MapPin className="w-4 md:w-5 h-4 md:h-5 text-amber-500 mb-2" />
               <p className="text-xs text-zinc-400 uppercase tracking-wide mb-1">Location</p>
-              <p className="font-bold text-zinc-100 text-sm md:text-base">Nationwide</p>
+              <p className="font-bold text-zinc-100 text-sm md:text-base">Alhamra Arts Complex</p>
               <p className="text-xs md:text-sm text-zinc-400">Pakistan</p>
             </div>
           </div>
@@ -145,7 +145,7 @@ export default function EventBanner() {
           <a href="/events">
             <button className="w-full bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 text-white font-bold py-3 md:py-4 rounded-xl hover:from-amber-700 hover:via-orange-700 hover:to-amber-800 transition-all duration-300 shadow-xl shadow-amber-900/50 hover:shadow-2xl hover:shadow-amber-800/60 flex items-center justify-center gap-3 group border border-amber-500/30">
               <Music className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              <span className="text-base md:text-lg uppercase tracking-wide">Get Your Tickets Now</span>
+              <span className="text-base md:text-lg uppercase tracking-wide">Get Free Tickets Now</span>
             </button>
           </a>
             

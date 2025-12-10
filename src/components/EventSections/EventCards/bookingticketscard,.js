@@ -25,26 +25,12 @@ const BookingTicketsCard = ({ onDayCardClick, onTabChange }) => {
     <>
       <div className="bg-white rounded-lg p-6">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 tracking-wide">
-          GOONJ 2.0
+          Lahore Chalay Aoo
         </h1>
 
         <div className="mb-4">
           <p className="text-gray-700 leading-relaxed text-sm md:text-base">
-            {`In light of our commitment towards change and betterment,
-just as last year’s successful initiative Goonj 1.0, the Humanity
-Alliance Organization is pleased to announce, HAO’s Goonj
-Fest’ 2025; Goonj 2.0. It is a 3 day nationwide fun filled festival
-which aims to appreciate and highlight young talent and
-provide youth with a platform to express themselves in various
-forms. The Goonj Fest’ 2025 is set to start from 5 December,
-2025 till 7 December 2025 with a plethora of entertaining
-events spanning multiple categories. Furthermore, the
-proceeds from this festival will go towards funding our many
-projects and initiatives, so that HAO can continue its mission of
-providing social welfare to those in need. So join us and play
-your part in giving back to the community and making HAO’s
-Goonj Fest’ 2025 festival even more memorable and exciting!
-We can’t wait to see you there!`}
+            {`Get ready for an unforgettable evening as Khalid Khan Production presents “Lahore Chalay Ao”, a grand live event featuring some of the most exciting singers, performers, and entertainers. Join us for a night filled with music, laughter, and powerful performances that will light up the stage and bring the spirit of Lahore to life.`}
           </p>
         </div>
 

@@ -15,7 +15,7 @@ const UpcomingEvents = () => {
         </h3>
         <ul className="space-y-4">
           {[
-            { id: "NAQSH-E-GOONJ", name: "GOONJ 2.0" },
+            { id: "NAQSH-E-GOONJ", name: "Lahore Chalay Ao" },
             // { id: "14-august", name: "14 August" },
             // { id: "6-september", name: "6 September" },
             // { id: "eid-milad", name: "Eid Milad-Un-Nabi" },
