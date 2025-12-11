@@ -69,6 +69,58 @@ export default function FreeTicketSuccess() {
 //       generatePDF();
 //     }
 //   };
+// const downloadReceiptPDF = async () => {
+//   if (!receiptRef.current) return;
+
+//   const element = receiptRef.current;
+
+//   // Hide elements with no-print class
+//   const noPrintElements = element.querySelectorAll(".no-print");
+//   noPrintElements.forEach(el => (el.style.display = "none"));
+
+//   // Load html2canvas and jsPDF dynamically if needed
+//   if (!window.html2canvas || !window.jsPDF) {
+//     await new Promise((resolve, reject) => {
+//       const script = document.createElement("script");
+//       script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+//       script.onload = resolve;
+//       script.onerror = reject;
+//       document.head.appendChild(script);
+//     });
+
+//     await new Promise((resolve, reject) => {
+//       const script = document.createElement("script");
+//       script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+//       script.onload = resolve;
+//       script.onerror = reject;
+//       document.head.appendChild(script);
+//     });
+//   }
+
+//   // Render the element to canvas
+//   const canvas = await window.html2canvas(element, { scale: 2, useCORS: true });
+//   const imgData = canvas.toDataURL("image/jpeg", 1.0);
+
+//   const { jsPDF } = window.jspdf;
+//   const pdf = new jsPDF("p", "mm", "a4");
+
+//   const pdfWidth = pdf.internal.pageSize.getWidth();
+//   const pdfHeight = pdf.internal.pageSize.getHeight();
+
+//   const imgWidth = canvas.width;
+//   const imgHeight = canvas.height;
+
+//   // Calculate the scaling to fit the content into A4 page
+//   const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+//   const width = imgWidth * ratio;
+//   const height = imgHeight * ratio;
+
+//   pdf.addImage(imgData, "JPEG", 0, 0, width, height);
+//   pdf.save(`ticket-${ticket?.orderId || "receipt"}.pdf`);
+
+//   // Restore hidden elements
+//   noPrintElements.forEach(el => (el.style.display = ""));
+// };
 const downloadReceiptPDF = async () => {
   if (!receiptRef.current) return;
 
@@ -78,26 +130,31 @@ const downloadReceiptPDF = async () => {
   const noPrintElements = element.querySelectorAll(".no-print");
   noPrintElements.forEach(el => (el.style.display = "none"));
 
-  // Load html2canvas and jsPDF dynamically if needed
-  if (!window.html2canvas || !window.jsPDF) {
+  // Dynamically load html2canvas
+  if (!window.html2canvas) {
     await new Promise((resolve, reject) => {
       const script = document.createElement("script");
-      script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-
-    await new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+      script.src =
+        "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
       script.onload = resolve;
       script.onerror = reject;
       document.head.appendChild(script);
     });
   }
 
-  // Render the element to canvas
+  // Dynamically load jsPDF UMD
+  if (!window.jspdf) {
+    await new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src =
+        "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+
+  // Render to canvas (always fresh)
   const canvas = await window.html2canvas(element, { scale: 2, useCORS: true });
   const imgData = canvas.toDataURL("image/jpeg", 1.0);
 
@@ -107,15 +164,17 @@ const downloadReceiptPDF = async () => {
   const pdfWidth = pdf.internal.pageSize.getWidth();
   const pdfHeight = pdf.internal.pageSize.getHeight();
 
-  const imgWidth = canvas.width;
-  const imgHeight = canvas.height;
+  const ratio = Math.min(pdfWidth / canvas.width, pdfHeight / canvas.height);
 
-  // Calculate the scaling to fit the content into A4 page
-  const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-  const width = imgWidth * ratio;
-  const height = imgHeight * ratio;
+  pdf.addImage(
+    imgData,
+    "JPEG",
+    0,
+    0,
+    canvas.width * ratio,
+    canvas.height * ratio
+  );
 
-  pdf.addImage(imgData, "JPEG", 0, 0, width, height);
   pdf.save(`ticket-${ticket?.orderId || "receipt"}.pdf`);
 
   // Restore hidden elements
@@ -136,41 +195,52 @@ const downloadReceiptPDF = async () => {
             <p className="text-gray-700 mt-1">Successfully generated</p>
           </div>
 
-          <div className="bg-gray-50 rounded-xl p-6 shadow-inner border border-gray-200">
-            <div className="flex justify-between py-2">
-              <span className="text-gray-700 font-medium">Order ID:</span>
-              <span className="font-bold text-gray-900">{ticket.orderId}</span>
-            </div>
-            <div className="flex justify-between py-2">
-              <span className="text-gray-700 font-medium">Name:</span>
-              <span className="font-bold text-gray-900">{ticket.name}</span>
-            </div>
-            <div className="flex justify-between py-2">
-              <span className="text-gray-700 font-medium">Phone:</span>
-              <span className="font-bold text-gray-900">{ticket.phone}</span>
-            </div>
-            <div className="flex justify-between py-2">
-              <span className="text-gray-700 font-medium">Email:</span>
-              <span className="font-bold text-gray-900">{ticket.email}</span>
-            </div>
-          </div>
+         <div className="flex justify-between py-2 flex-wrap">
+  <span className="text-gray-700 font-medium">Order ID:</span>
+  <span className="font-bold text-gray-900 break-all max-w-[60%] text-right">
+    {ticket.orderId}
+  </span>
+</div>
 
-          <div className="flex gap-4 mt-8 no-print">
-            <button
-              onClick={() => navigate("/")}
-              className="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2"
-            >
-              <Home className="w-5 h-5" />
-              Back to Home
-            </button>
-            <button
-              onClick={downloadReceiptPDF}
-              className="flex-1 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-bold py-3 rounded-lg flex items-center justify-center gap-2"
-            >
-              <Download className="w-5 h-5" />
-              Download PDF
-            </button>
-          </div>
+<div className="flex justify-between py-2 flex-wrap">
+  <span className="text-gray-700 font-medium">Email:</span>
+  <span className="font-bold text-gray-900 break-all max-w-[60%] text-right">
+    {ticket.email}
+  </span>
+</div>
+
+<div className="flex justify-between py-2 flex-wrap">
+  <span className="text-gray-700 font-medium">Phone:</span>
+  <span className="font-bold text-gray-900 break-all max-w-[60%] text-right">
+    {ticket.phone}
+  </span>
+</div>
+
+<div className="flex justify-between py-2 flex-wrap">
+  <span className="text-gray-700 font-medium">Name:</span>
+  <span className="font-bold text-gray-900 break-all max-w-[60%] text-right">
+    {ticket.name}
+  </span>
+</div>
+
+          <div className="flex flex-col sm:flex-row gap-4 mt-8 no-print">
+  <button
+    onClick={() => navigate("/")}
+    className="w-full sm:flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2"
+  >
+    <Home className="w-5 h-5" />
+    Back to Home
+  </button>
+
+  <button
+    onClick={downloadReceiptPDF}
+    className="w-full sm:flex-1 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-bold py-3 rounded-lg flex items-center justify-center gap-2"
+  >
+    <Download className="w-5 h-5" />
+    Download PDF
+  </button>
+</div>
+
         </div>
       </div>
     </div>
