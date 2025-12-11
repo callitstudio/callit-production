@@ -384,7 +384,7 @@ const EventDetail = () => {
       <div
         className="relative h-[500px] flex flex-col items-center justify-center"
         style={{
-          backgroundImage: "url(/banner.jpeg)",
+          backgroundImage: "url(/lahorevent.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
