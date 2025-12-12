@@ -20,8 +20,8 @@ export default function FreeTicketForm() {
     const e = {};
     if (!form.name.trim()) e.name = "Name is required";
     if (!form.phone.trim()) e.phone = "Phone is required";
-    if (form.phone && !/^\d{7,15}$/.test(form.phone))
-      e.phone = "Enter valid phone (7-15 digits)";
+    if (form.phone && !/^\d{11}$/.test(form.phone))
+      e.phone = "Enter valid phone (11 digits)";
     if (!form.email.trim()) e.email = "Email is required";
     if (form.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email))
       e.email = "Enter valid email";
